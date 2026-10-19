@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jarred & Mbali Du Plessis - Wedding RSVP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fcfbf7;
+            --card-bg: #ffffff;
+            --accent: #b89767;
+            --accent-hover: #9e7f52;
+            --text-main: #2c2c2c;
+            --text-muted: #767676;
+            --border: #e8e2d5;
+            --shadow: rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            background-image: radial-gradient(#e5dec9 0.75px, transparent 0.75px);
+            background-size: 24px 24px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        #confettiCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 560px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 48px 36px;
+            box-shadow: 0 20px 40px var(--shadow);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-subtitle {
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+
+        .surname {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .countdown-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            background: #faf7f0;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 28px;
+        }
+
+        .timer-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timer-val {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .timer-unit {
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .event-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            line-height: 1.6;
+            text-align: left;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px 20px;
+        }
+
+        .meta-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .meta-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .meta-row strong {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .dress-code-badge {
+            display: inline-block;
+            background: #f4efe6;
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .timeline-title {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .timeline {
+            text-align: left;
+            border-left: 2px solid var(--border);
+            padding-left: 18px;
+            margin-left: 8px;
+            margin-bottom: 28px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -23px;
+            top: 5px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .timeline-time {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--accent);
+        }
+
+        .timeline-event {
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .divider {
+            width: 40px;
+            height: 1px;
+            background-color: var(--accent);
+            margin: 0 auto 32px auto;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+            background: #faf9f6;
+            color: var(--text-main);
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .attendance-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .attendance-option {
+            position: relative;
+        }
+
+        .attendance-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .attendance-label {
+            display: block;
+            padding: 14px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #faf9f6;
+            font-size: 0.8rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: none;
+            letter-spacing: 0;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        .attendance-option input[type="radio"]:checked + .attendance-label {
+            border-color: var(--accent);
+            background: #ffffff;
+            color: var(--accent);
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(184, 151, 103, 0.15);
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper::after {
+            content: '▾';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+            pointer-events: none;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--accent);
+            background: #ffffff;
+        }
+
+        button, .btn-secondary {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--accent);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
+        button:hover, .btn-secondary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        button:active, .btn-secondary:active {
+            transform: scale(0.99);
+        }
+
+        button:disabled {
+            background-color: #d1c9bd;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            margin-top: 12px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #fcf8f2;
+            color: var(--accent-hover);
+        }
+
+        .result-card {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .success-icon {
+            width: 52px;
+            height: 52px;
+            background: #f4efe6;
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            font-size: 1.5rem;
+            animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .decline-icon {
+            background: #fdf2f2;
+            color: #b33939;
+        }
+
+        .result-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+
+        .result-message {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .guest-counter-box {
+            background: #faf7f0;
+            border: 1px dashed var(--accent);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .counter-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.2rem;
+            font-weight: 600;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .counter-label {
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background: #e8e2d5;
+            border-radius: 3px;
+            margin-top: 16px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .ticket-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+            position: relative;
+        }
+
+        .ticket-header {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .ticket-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .ticket-party {
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-top: 2px;
+        }
+
+        .ticket-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px dashed var(--border);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .full-notice {
+            color: #b33939;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="confettiCanvas"></canvas>
+
+<div class="container">
+    <div id="rsvpFormSection">
+        <p class="header-subtitle">Official Wedding RSVP</p>
+        <h1>Jarred & Mbali</h1>
+        <p class="surname">Du Plessis</p>
+        
+        <div class="countdown-container">
+            <div class="timer-box">
+                <span class="timer-val" id="timerDays">00</span>
+                <span class="timer-unit">Days</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-val" id="timerHours">00</span>
+                <span class="timer-unit">Hours</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-val" id="timerMins">00</span>
+                <span class="timer-unit">Mins</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-val" id="timerSecs">00</span>
+                <span class="timer-unit">Secs</span>
+            </div>
+        </div>
+
+        <div class="event-meta">
+            <div class="meta-row">
+                <span><strong>Date:</strong> Saturday, May 29, 2027</span>
+                <span><strong>Time:</strong> 15:00 PM</span>
+            </div>
+            <div class="meta-row">
+                <span><strong>Venue:</strong> Oakfield Farm, Muldersdrift</span>
+            </div>
+            <div class="meta-row" style="margin-top: 10px; align-items: center;">
+                <span><strong>Dress Code:</strong></span>
+                <span class="dress-code-badge">Formal Earth Tones</span>
+            </div>
+        </div>
+
+        <div class="timeline-title">Wedding Schedule</div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-time">15:00 PM</div>
+                <div class="timeline-event">Wedding Ceremony</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">16:30 PM</div>
+                <div class="timeline-event">Canapés, Cocktails & Photos</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">18:00 PM</div>
+                <div class="timeline-event">Reception & Dinner</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">23:30 PM</div>
+                <div class="timeline-event">Farewell & Last Call</div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <form id="rsvpForm">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" required placeholder="Enter your first name">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Surname</label>
+                <input type="text" id="lastName" required placeholder="Enter your surname">
+            </div>
+
+            <div class="form-group">
+                <label>Attendance Status</label>
+                <div class="attendance-options">
+                    <div class="attendance-option">
+                        <input type="radio" id="attendingYes" name="attendance" value="yes" checked>
+                        <label class="attendance-label" for="attendingYes">Joyfully Accepts</label>
+                    </div>
+                    <div class="attendance-option">
+                        <input type="radio" id="attendingNo" name="attendance" value="no">
+                        <label class="attendance-label" for="attendingNo">Regretfully Declines</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" id="guestsFieldGroup">
+                <label for="extraGuests">Additional Guests (Optional)</label>
+                <div class="select-wrapper">
+                    <select id="extraGuests">
+                        <option value="0">Just me (0 additional guests)</option>
+                        <option value="1">+1 Additional Guest</option>
+                        <option value="2">+2 Additional Guests</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" id="submitBtn">Submit RSVP</button>
+            <p class="full-notice" id="fullNotice">We are fully booked. The guest limit of 825 has been reached.</p>
+        </form>
+    </div>
+
+    <div id="resultSection" class="result-card">
+        <div class="success-icon" id="resultIcon">✓</div>
+        <h2 class="result-title" id="resultTitle">RSVP Confirmed</h2>
+        <p class="result-message" id="guestGreeting"></p>
+
+        <div id="attendingDetails">
+            <div class="guest-counter-box">
+                <div class="counter-number" id="guestCount">0</div>
+                <div class="counter-label">Confirmed Guests out of 825</div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <div class="ticket-card">
+                <div class="ticket-header">Official Wedding Guest Pass</div>
+                <div class="ticket-name" id="ticketGuestName">Guest</div>
+                <div class="ticket-party" id="ticketPartyInfo">Solo Entry</div>
+                <div class="ticket-details">
+                    <div>
+                        <div><strong>Date:</strong> May 29, 2027</div>
+                        <div><strong>Time:</strong> 15:00 PM</div>
+                    </div>
+                    <div>
+                        <div><strong>Venue:</strong> Oakfield Farm</div>
+                        <div><strong>Pass #:</strong> <strong id="ticketPassNo">000</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <a id="calendarBtn" target="_blank" class="btn-secondary">Add to Google Calendar</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const MAX_GUESTS = 825;
+    const WEDDING_DATE = new Date('2027-05-29T15:00:00').getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = WEDDING_DATE - now;
+
+        if (distance < 0) {
+            document.getElementById('timerDays').textContent = '00';
+            document.getElementById('timerHours').textContent = '00';
+            document.getElementById('timerMins').textContent = '00';
+            document.getElementById('timerSecs').textContent = '00';
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('timerDays').textContent = String(days).padStart(2, '0');
+        document.getElementById('timerHours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('timerMins').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('timerSecs').textContent = String(seconds).padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    const attendingYesRadio = document.getElementById('attendingYes');
+    const attendingNoRadio = document.getElementById('attendingNo');
+    const guestsFieldGroup = document.getElementById('guestsFieldGroup');
+
+    attendingYesRadio.addEventListener('change', () => {
+        guestsFieldGroup.style.display = 'block';
+    });
+
+    attendingNoRadio.addEventListener('change', () => {
+        guestsFieldGroup.style.display = 'none';
+    });
+
+    function triggerConfetti() {
+        const canvas = document.getElementById('confettiCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const pieces = [];
+        const numberOfPieces = 100;
+        const colors = ['#b89767', '#d4af37', '#e8e2d5', '#2c2c2c', '#f4efe6'];
+
+        for (let i = 0; i < numberOfPieces; i++) {
+            pieces.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height - canvas.height,
+                size: Math.random() * 8 + 4,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                speedY: Math.random() * 3 + 2,
+                speedX: Math.random() * 2 - 1,
+                rotation: Math.random() * 360,
+                rotationSpeed: Math.random() * 10 - 5
+            });
+        }
+
+        let animationFrame;
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let hasVisible = false;
+
+            pieces.forEach(p => {
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotationSpeed;
+
+                if (p.y < canvas.height) {
+                    hasVisible = true;
+                }
+
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate((p.rotation * Math.PI) / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                ctx.restore();
+            });
+
+            if (hasVisible) {
+                animationFrame = requestAnimationFrame(animate);
+            } else {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                cancelAnimationFrame(animationFrame);
+            }
+        }
+
+        animate();
+    }
+
+    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const isAttending = document.getElementById('attendingYes').checked;
+        const extraGuestsCount = parseInt(document.getElementById('extraGuests').value, 10);
+
+        if (!firstName || !lastName) return;
+
+        document.getElementById('rsvpFormSection').style.display = 'none';
+        document.getElementById('resultSection').style.display = 'block';
+
+        const resultIcon = document.getElementById('resultIcon');
+        const resultTitle = document.getElementById('resultTitle');
+        const attendingDetails = document.getElementById('attendingDetails');
+
+        if (!isAttending) {
+            resultIcon.textContent = '✕';
+            resultIcon.classList.add('decline-icon');
+            resultTitle.textContent = 'Response Recorded';
+            document.getElementById('guestGreeting').textContent = `Thank you for letting us know, ${firstName} ${lastName}. We are sorry you won't be able to celebrate with us, but we truly appreciate your warm wishes!`;
+            attendingDetails.style.display = 'none';
+            return;
+        }
+
+        resultIcon.textContent = '✓';
+        resultIcon.classList.remove('decline-icon');
+        resultTitle.textContent = 'RSVP Confirmed';
+        attendingDetails.style.display = 'block';
+
+        const randomNumber = Math.floor(Math.random() * MAX_GUESTS) + 1;
+        const formattedPass = String(randomNumber).padStart(3, '0');
+
+        let extraText = '';
+        let partyLabel = 'Solo Entry';
+        
+        if (extraGuestsCount === 1) {
+            extraText = ' plus 1 guest';
+            partyLabel = 'Party of 2 (Primary + 1 Guest)';
+        } else if (extraGuestsCount === 2) {
+            extraText = ' plus 2 guests';
+            partyLabel = 'Party of 3 (Primary + 2 Guests)';
+        }
+
+        document.getElementById('guestGreeting').textContent = `Thank you for confirming, ${firstName} ${lastName}${extraText}! We look forward to celebrating with you at the Du Plessis wedding.`;
+        document.getElementById('guestCount').textContent = randomNumber;
+        document.getElementById('ticketGuestName').textContent = `${firstName} ${lastName}`;
+        document.getElementById('ticketPartyInfo').textContent = partyLabel;
+        document.getElementById('ticketPassNo').textContent = formattedPass;
+
+        const calTitle = encodeURIComponent("Jarred & Mbali Du Plessis Wedding");
+        const calDetails = encodeURIComponent(`Wedding Celebration for Jarred & Mbali Du Plessis at Oakfield Farm, Muldersdrift. Guest Pass #${formattedPass}.`);
+        const calLocation = encodeURIComponent("Oakfield Farm, Muldersdrift");
+        const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${calTitle}&dates=20270529T150000Z/20270529T220000Z&details=${calDetails}&location=${calLocation}`;
+        document.getElementById('calendarBtn').href = calUrl;
+
+        const percentage = (randomNumber / MAX_GUESTS) * 100;
+        setTimeout(() => {
+            document.getElementById('progressFill').style.width = `${Math.min(percentage, 100)}%`;
+        }, 100);
+
+        triggerConfetti();
+    });
+</script>
+
+</body>
+</html>
